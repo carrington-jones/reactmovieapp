@@ -1,16 +1,23 @@
 import React, {Component} from "react";
 import {getMovies} from "../services/fakeMovieService";
-import pagination from "./common/pagination";
+import {getGenres} from "../services/fakeGenreService";
+import ListGroup from "./common/listGroup";
 import Like from "./common/Like";
 import Pagination from "./common/pagination";
 import {paginate} from "../utils/paginate";
 
 class Movies extends Component {
     state = {
-        movies: getMovies(),
+        movies: [],
+        genres: [],
         currentPage : 1, //What page pagination is on when refreshed or application loads.
         pageSize: 4 //How many movies are on each page
     };
+
+    componentDidMount() {
+        this.setState({ movies: getMovies(), genres: getGenres()});
+    }
+
     handleDelete = (movie) => {
        const movies = this.state.movies.filter(m => m._id !== movie._id) ;
        this.setState({movies});
@@ -28,6 +35,10 @@ class Movies extends Component {
         this.setState({currentPage : page});
     }
 
+    handleGenreSelect = genre => {
+        console.log(genre);
+    }
+
     render() {
 
         const { length: count } = this.state.movies;
@@ -40,7 +51,11 @@ class Movies extends Component {
 
 
         return(
-            <React.Fragment>
+            <div className="row">
+                <div className="col 2">
+                   <ListGroup items={this.state.genres} onItemSelect={this.handleGenreSelect} />
+                </div>
+                <div className="col">
                 <p>Showing {this.state.movies.length} movies in the database.</p>
                 <table className="table">
                     <thead>
@@ -69,7 +84,8 @@ class Movies extends Component {
                     </tbody>
                 </table>
                 <Pagination itemsCount={count} pageSize={pageSize} currentPage={currentPage} onPageChange={this.handlePageChange}/>
-            </React.Fragment>
+                </div>
+            </div>
         )}
 }
 
