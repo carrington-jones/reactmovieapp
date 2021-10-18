@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class TableHeader extends Component{
+class TableHeader extends Component {
     raiseSort = column => {
         const sortColumn = {...this.props.sortColumn}
         if (sortColumn.column === column)
@@ -22,11 +22,12 @@ class TableHeader extends Component{
         return <i className="fa fa-sort-desc"/>;
     }
 
-    render(){
+    render() {
         return (<thead>
         <tr>
             {this.props.columns.map(column => (
-                <th className='clickable' key={column.column || column.key} onClick={() => this.raiseSort(column.column)}>
+                <th className='clickable' key={column.column || column.key}
+                    onClick={() => this.raiseSort(column.column)}>
                     {column.label} {this.renderSortIcon(column)}
                 </th>))}
         </tr>
