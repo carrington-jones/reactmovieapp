@@ -7,6 +7,8 @@ Video database application created with React.
 * Creating reusable react component
 * Learning Lifecycle hooks
 * Paginating, filtering, sorting
+* Routing
+* Forms and their validation
 
 ### Online version
 
